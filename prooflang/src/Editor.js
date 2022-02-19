@@ -1,3 +1,4 @@
+import './Editor.css';
 function Editor() {
     return (
         <div className="editor">
