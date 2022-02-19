@@ -1,9 +1,13 @@
 import './Editor.css';
+import AceEditor from 'react-ace';
+
 function Editor() {
+    let handleInput = (value) => {
+        console.log(value);
+    }
+
     return (
-        <div className="editor">
-            <textarea className="editor-textarea" />
-        </div>
+        <AceEditor mode="java" theme="github" name="editor" onChange={handleInput} />
     )
 }
 
