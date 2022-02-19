@@ -1,5 +1,7 @@
 mod utils;
+mod interpreter;
 
+use interpreter::Interpreter;
 use wasm_bindgen::prelude::*;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -16,4 +18,9 @@ extern {
 #[wasm_bindgen]
 pub fn greet() {
     alert("Hello, prooflang-wasm!");
+}
+
+#[wasm_bindgen]
+pub fn interpret(input: &str) -> String {
+    Interpreter::new().interpret(input.to_owned())
 }
