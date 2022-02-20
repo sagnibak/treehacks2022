@@ -40,6 +40,6 @@ impl Interpreter {
     }
 
     pub fn interpret(&mut self, code: String) -> String {
-        todo!()
+        format!("This is what WASM received: {}", code)
     }
 }
