@@ -36,7 +36,7 @@ pub struct Interpreter {
 }
 
 impl Interpreter {
-    pub const fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             types: HashMap::new(),
             env: HashMap::new(),

@@ -1,6 +1,10 @@
+#[macro_use]
+extern crate lazy_static;
+
 mod interpreter;
 mod utils;
 
+use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 
 use crate::interpreter::{Interpreter, Type};
@@ -12,7 +16,9 @@ use crate::interpreter::{Interpreter, Type};
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 // The interpreter.
-static mut INTERPRETER: Interpreter = Interpreter::new();
+lazy_static! {
+    static ref INTERPRETER: Mutex<Interpreter> = Mutex::new(Interpreter::new());
+}
 
 #[wasm_bindgen]
 extern "C" {
@@ -26,10 +32,10 @@ pub fn greet() {
 
 #[wasm_bindgen]
 pub fn interpret(input: &str) -> String {
-    unsafe { INTERPRETER.interpret(input.to_owned()) }
+    unsafe { INTERPRETER.lock().unwrap().interpret(input.to_owned()) }
 }
 
 #[wasm_bindgen]
 pub fn get_env() -> String {
-    format!("{:?}", unsafe { &INTERPRETER.env })
+    format!("{:?}", unsafe { &INTERPRETER.lock().unwrap().env })
 }
