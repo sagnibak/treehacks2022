@@ -76,7 +76,7 @@ impl Interpreter {
                     };
                     let val = type_.instantiate(&Name(constructor));
                     self.env.insert(name.clone(), val);
-                    format!("Defined new type: {}", name)
+                    format!("Defined new variable: {}", name)
                 }
 
                 Expr::FuncDef(_) => String::from("not implemented"),
