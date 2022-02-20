@@ -1,3 +1,18 @@
 .Display{
     width:100%;
 }
+.type-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.type {
+    background-color: gray;
+}
+.unit-selection {
+    background-color: #ccc;
+}
+.unit {
+    background-color: transparent;
+    padding: 5px;
+}
