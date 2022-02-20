@@ -2,6 +2,7 @@
 extern crate lazy_static;
 
 mod interpreter;
+mod parser;
 mod utils;
 
 use std::sync::Mutex;
@@ -32,10 +33,15 @@ pub fn greet() {
 
 #[wasm_bindgen]
 pub fn interpret(input: &str) -> String {
-    unsafe { INTERPRETER.lock().unwrap().interpret(input.to_owned()) }
+    INTERPRETER.lock().unwrap().interpret(input.to_owned())
 }
 
 #[wasm_bindgen]
 pub fn get_env() -> String {
-    format!("{:?}", unsafe { &INTERPRETER.lock().unwrap().env })
+    format!("{:?}", &INTERPRETER.lock().unwrap().env)
+}
+
+#[wasm_bindgen]
+pub fn get_types() -> String {
+    format!("{:?}", &INTERPRETER.lock().unwrap().types)
 }
