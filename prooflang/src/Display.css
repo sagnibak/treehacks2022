@@ -1,5 +1,6 @@
 .Display{
     width:100%;
+    flex-direction: column;
 }
 .type-list {
     display: flex;
@@ -8,6 +9,9 @@
 }
 .type {
     background-color: gray;
+    padding: 10px;
+    outline: black solid 1px;
+    margin: 10px;
 }
 .unit-selection {
     background-color: #ccc;
