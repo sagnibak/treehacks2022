@@ -11,7 +11,7 @@ function Editor() {
     React.useEffect(() => {
         if ( !wasm ) init().then(wasm => setWasm(wasm));
         else {
-            wasm.greet()
+            wasm.greet();
         }
     }, [wasm]);
     
