@@ -1,25 +1,17 @@
 import './Editor.css';
-import init from 'prooflang-wasm';
 import React from 'react';
-import { interpret, get_env } from 'prooflang-wasm';
+import { interpret, get_env, get_types } from 'prooflang-wasm';
 
-function Editor() {
-    const [wasm, setWasm] = React.useState(null);
-    const [env, setEnv] = React.useState(null);
+function Editor({wasm, setEnv, setTypes}) {
     const [output, setOutput] = React.useState([]);
 
-    React.useEffect(() => {
-        if ( !wasm ) init().then(wasm => setWasm(wasm));
-        else {
-            wasm.greet()
-        }
-    }, [wasm]);
     
 
     let handleInput = (value) => {
         console.log(value);
         setOutput(output.concat(">>> " + value, interpret(value)))
         setEnv(get_env());
+        setTypes(get_types());
     }
 
     const handleKeyDown = (event) => {
