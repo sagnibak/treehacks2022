@@ -10,7 +10,7 @@ function Display({wasm, env, types}) {
             <p> Types </p>
             <div className='type-list'> 
                 <div className='type'>
-                    Bool
+                    <span>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -18,7 +18,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    Bool
+                    <span>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -26,7 +26,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    Bool
+                    <span>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -34,7 +34,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    Bool
+                    <span>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -42,7 +42,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    Bool
+                    <span>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -50,7 +50,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    Bool
+                    <span>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -58,7 +58,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    Singleton
+                    <span>Singleton</span>  
                     <div className='unit-selection'>
                         <span className='unit'>One</span>
                     </div>
