@@ -1,6 +1,7 @@
 import './Editor.css';
 import init from 'prooflang-wasm';
 import React from 'react';
+import { interpret, get_env } from 'prooflang-wasm';
 
 function Editor() {
     const [wasm, setWasm] = React.useState(null);
@@ -9,18 +10,20 @@ function Editor() {
 
     React.useEffect(() => {
         if ( !wasm ) init().then(wasm => setWasm(wasm));
-        else wasm.greet()
+        else {
+            wasm.greet()
+        }
     }, [wasm]);
     
 
     let handleInput = (value) => {
         console.log(value);
-        setOutput(output.concat(">>> " + value, wasm.interpret(value)))
-        setEnv(wasm.get_env());
+        setOutput(output.concat(">>> " + value, interpret(value)))
+        setEnv(get_env());
     }
 
     const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && wasm) {
             handleInput(event.target.textContent);
             event.target.textContent = '';
         }
