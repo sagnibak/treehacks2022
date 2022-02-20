@@ -42,14 +42,22 @@ pub fn get_env() -> String {
     let mut json_string = String::new();
     json_string.push_str("[");
 
-    for (i, (s, c)) in env.iter().enumerate() {
+    for (i, (s, ob)) in env.iter().enumerate() {
         if i != 0 {
             json_string.push_str(",");
         }
 
         json_string.push_str(&format!("[\"{}\"", s));
         json_string.push_str(", ");
-        match c {
+        
+        match &ob.0 {
+            Type::ScalarType(name, _) => {
+                json_string.push_str(&format!("\"{}\", ", name.0));
+            },
+            Type::FunctionType(..) => todo!(),
+        }
+        
+        match &ob.1 {
             Constructor::UnitLike(name) => {
                 json_string.push_str(&format!("\"{}\"]", name));
             }

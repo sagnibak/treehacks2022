@@ -23,10 +23,16 @@ pub enum Type {
     FunctionType(Box<Type>, Box<Type>),
 }
 
+#[derive(Clone, Debug)]
+pub struct Object(pub Type, pub Constructor);
+
 impl Type {
-    fn instantiate(&self, name: &Name) -> Constructor {
+    fn instantiate(&self, name: &Name) -> Object {
         match self {
-            Self::ScalarType(_, constructors) => constructors.get(name).unwrap().clone(),
+            t @ Self::ScalarType(_, constructors) => Object(
+                t.clone(),
+                constructors.get(name).unwrap().clone(),
+            ),
             Self::FunctionType(arg_type, out_type) => todo!(),
         }
     }
@@ -34,7 +40,7 @@ impl Type {
 
 pub struct Interpreter {
     pub types: HashMap<String, Type>,
-    pub env: HashMap<String, Constructor>,
+    pub env: HashMap<String, Object>,
 }
 
 impl Interpreter {
