@@ -6,8 +6,13 @@ import Display from './Display.js';
 function App() {
   return (
     <div className="App">
-      <Editor />
-      <Display />
+      <div className="App-header">
+        <h1>ProofLang</h1>
+      </div>
+      <div className='App-body'>
+        <Editor />
+        <Display />
+      </div>
     </div>
   );
 }

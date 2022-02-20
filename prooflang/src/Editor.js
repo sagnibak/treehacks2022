@@ -32,7 +32,7 @@ function Editor() {
                 <span className='code' key={"output" + index}>{value}</span>
             ))}
             <div className='codeRow'>
-                <span>>>> </span>
+                <span>{'>>> '}</span>
                 <span className='code' id="input" contentEditable="plaintext-only" onKeyDown={handleKeyDown}></span>
             </div>
         </div>
