@@ -5,6 +5,13 @@ pub struct SetDefExpr {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
+pub struct VarDefExpr {
+    pub name: String,
+    pub type_name: String,
+    pub constructor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FunctionDefExpr {
     cases: Vec<(String, String)>,
 }
@@ -12,6 +19,7 @@ pub struct FunctionDefExpr {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Expr {
     SetDef(SetDefExpr),
+    VarDef(VarDefExpr),
     FuncDef(FunctionDefExpr),
 }
 
@@ -58,6 +66,52 @@ pub fn parse_set(s: &str) -> Result<(String, Expr), String> {
             constructor_names,
         }),
     ))
+}
+
+pub fn parse_var(s: &str) -> Result<(String, Expr), String> {
+    let mut splitted = s.split_whitespace();
+
+    parse_tag("let")(splitted.next().unwrap_or("Empty"))?;
+
+    let name = if let Some(_name) = splitted.next() {
+        _name.to_owned()
+    } else {
+        return Err("Expected identifier (variable name)".to_owned());
+    };
+
+    parse_tag("=")(splitted.next().unwrap_or("Missing `=`"))?;
+
+    let type_name = if let Some(_name) = splitted.next() {
+        _name.to_owned()
+    } else {
+        return Err("Expected identifier (type name)".to_owned());
+    };
+
+    parse_tag("->")(splitted.next().unwrap_or("Missing `->`"))?;
+
+    let constructor = if let Some(_name) = splitted.next() {
+        _name.to_owned()
+    } else {
+        return Err("Expected identifier (constructor name)".to_owned());
+    };
+
+    Ok((
+        splitted.map(|x| String::from(" ") + x).collect(),
+        Expr::VarDef(VarDefExpr {
+            name: name,
+            type_name,
+            constructor,
+        }),
+    ))
+}
+
+pub fn parse(s: &str) -> Result<(String, Expr), String> {
+    let parse_result = parse_set(s);
+    if parse_result.is_err() {
+        parse_var(s)
+    } else {
+        parse_result
+    }
 }
 
 #[cfg(test)]

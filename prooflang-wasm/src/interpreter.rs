@@ -1,6 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::parser::{parse_set, Expr, SetDefExpr};
+use crate::parser::{parse, Expr, SetDefExpr, VarDefExpr};
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 struct Name(String);
@@ -46,28 +46,40 @@ impl Interpreter {
     }
 
     pub fn interpret(&mut self, code: String) -> String {
-        let parse_result = parse_set(&code);
+        let parse_result = parse(&code);
         if let Ok((_, expr)) = parse_result {
-            let new_type = match expr {
+            match expr {
                 Expr::SetDef(SetDefExpr {
                     name,
                     constructor_names,
-                }) => Type::ScalarType(
-                    Name(name),
-                    constructor_names
-                        .into_iter()
-                        .map(|x| (Name(x.clone()), Constructor::UnitLike(x)))
-                        .collect(),
-                ),
-                Expr::FuncDef(_) => todo!(),
-            };
-
-            match &new_type {
-                Type::ScalarType(name, _) => {
-                    self.types.insert(name.0.clone(), new_type.clone());
-                    format!("Defined new type: {}", name.0)
+                }) => {
+                    let new_type = Type::ScalarType(
+                        Name(name.clone()),
+                        constructor_names
+                            .into_iter()
+                            .map(|x| (Name(x.clone()), Constructor::UnitLike(x)))
+                            .collect(),
+                    );
+                    self.types.insert(name.clone(), new_type.clone());
+                    format!("Defined new type: {}", name)
                 }
-                Type::FunctionType(..) => todo!(),
+
+                Expr::VarDef(VarDefExpr {
+                    name,
+                    type_name,
+                    constructor,
+                }) => {
+                    let type_ = if let Some(type_) = self.types.get(&type_name) {
+                        type_
+                    } else {
+                        return format!("Undefined type: {}", type_name);
+                    };
+                    let val = type_.instantiate(&Name(constructor));
+                    self.env.insert(name.clone(), val);
+                    format!("Defined new type: {}", name)
+                }
+
+                Expr::FuncDef(_) => String::from("not implemented"),
             }
         } else {
             format!("Received error: {}", parse_result.unwrap_err())
