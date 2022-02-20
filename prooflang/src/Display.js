@@ -10,7 +10,7 @@ function Display({wasm, env, types}) {
             <p> Types </p>
             <div className='type-list'> 
                 <div className='type'>
-                    <span>Bool</span>  
+                    <span className='type-name'>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -18,7 +18,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    <span>Bool</span>  
+                    <span className='type-name'>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -26,7 +26,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    <span>Bool</span>  
+                    <span className='type-name'>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -34,7 +34,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    <span>Bool</span>  
+                    <span className='type-name'>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
@@ -42,7 +42,7 @@ function Display({wasm, env, types}) {
                 </div>
 
                 <div className='type'>
-                    <span>Bool</span>  
+                    <span className='type-name'>Bool</span>  
                     <div className='unit-selection'>
                         <span className='unit'>True</span>
                         <span className='unit'>False</span>
