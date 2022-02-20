@@ -10,8 +10,8 @@ function Editor({wasm, setEnv, setTypes}) {
     let handleInput = (value) => {
         console.log(value);
         setOutput(output.concat(">>> " + value, interpret(value)))
-        setEnv(get_env());
-        setTypes(get_types());
+        setEnv(JSON.parse(get_env()));
+        setTypes(JSON.parse(get_types()));
     }
 
     const handleKeyDown = (event) => {
