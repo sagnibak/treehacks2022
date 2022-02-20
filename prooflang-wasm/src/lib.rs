@@ -76,6 +76,7 @@ pub fn get_types() -> String {
         json_string.push_str(", ");
         match t {
             Type::ScalarType(_, constructors) => {
+                json_string.push_str("[");
                 for (j, (name, _)) in constructors.iter().enumerate() {
                     if j != 0 {
                         json_string.push_str(", ");
@@ -83,6 +84,7 @@ pub fn get_types() -> String {
 
                     json_string.push_str(&format!("\"{}\"", name.0));
                 }
+                json_string.push_str("]");
             }
             Type::FunctionType(_, _) => todo!(),
         }
