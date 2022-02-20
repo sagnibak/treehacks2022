@@ -1,8 +1,9 @@
-mod utils;
 mod interpreter;
+mod utils;
 
-use interpreter::Interpreter;
 use wasm_bindgen::prelude::*;
+
+use crate::interpreter::{Interpreter, Type};
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -10,8 +11,11 @@ use wasm_bindgen::prelude::*;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+// The interpreter.
+static mut INTERPRETER: Interpreter = Interpreter::new();
+
 #[wasm_bindgen]
-extern {
+extern "C" {
     fn alert(s: &str);
 }
 
@@ -22,5 +26,10 @@ pub fn greet() {
 
 #[wasm_bindgen]
 pub fn interpret(input: &str) -> String {
-    Interpreter::new().interpret(input.to_owned())
+    unsafe { INTERPRETER.interpret(input.to_owned()) }
+}
+
+#[wasm_bindgen]
+pub fn get_env() -> String {
+    format!("{:?}", unsafe { &INTERPRETER.env })
 }

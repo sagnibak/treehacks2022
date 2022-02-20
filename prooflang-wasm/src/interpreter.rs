@@ -32,11 +32,15 @@ impl Type {
 
 pub struct Interpreter {
     types: HashMap<String, Type>,
+    pub env: HashMap<String, Constructor>,
 }
 
 impl Interpreter {
-    pub fn new() -> Self {
-        Self { types: HashMap::new() }
+    pub const fn new() -> Self {
+        Self {
+            types: HashMap::new(),
+            env: HashMap::new(),
+        }
     }
 
     pub fn interpret(&mut self, code: String) -> String {
