@@ -8,7 +8,7 @@ mod utils;
 use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 
-use crate::interpreter::{Interpreter, Type};
+use crate::interpreter::{Constructor, Interpreter, Type};
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -38,7 +38,27 @@ pub fn interpret(input: &str) -> String {
 
 #[wasm_bindgen]
 pub fn get_env() -> String {
-    format!("{:?}", &INTERPRETER.lock().unwrap().env)
+    let env = &INTERPRETER.lock().unwrap().env;
+    let mut json_string = String::new();
+    json_string.push_str("[");
+
+    for (i, (s, c)) in env.iter().enumerate() {
+        if i != 0 {
+            json_string.push_str(",");
+        }
+
+        json_string.push_str(&format!("[\"{}\"", s));
+        json_string.push_str(", ");
+        match c {
+            Constructor::UnitLike(name) => {
+                json_string.push_str(&format!("\"{}\"]", name));
+            }
+            Constructor::FunctionLike(_) => todo!(),
+        }
+    }
+
+    json_string.push_str("]");
+    json_string
 }
 
 #[wasm_bindgen]
