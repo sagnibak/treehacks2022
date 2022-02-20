@@ -7,72 +7,28 @@ function Display({wasm, env, types}) {
     window.types = types;
     window.env = env;
     
-    if (!("Bool" in colorMap)) {
-        setColorMap({...colorMap, "Bool":randomColor()});
-    }
-    if (!("Singleton" in colorMap)) {
-        setColorMap({...colorMap, "Singleton":randomColor()});
-    }
+    React.useEffect(() => {
+        types && types.map(t => {
+            let name = t[0];
+            if (!colorMap[name]) {
+                colorMap[name] = randomColor({luminosity: 'dark'});
+                setColorMap(colorMap);
+            }
+    })}, [types]);
+
     return (
         <div className="Display">
             <h1>Display</h1>
             <p>types: {types}</p>
             <p> Types </p>
             <div className='type-list'> 
-                <div className='type' style={{backgroundColor:colorMap["Bool"]}}>
-                    <span className='type-name'>Bool</span>  
+                {types && types.map(t => (
+                <div className='type' style={{backgroundColor:colorMap[t[0]]}}>
+                    <span className='type-name'>{t[0]}</span>  
                     <div className='unit-selection'>
-                        <span className='unit'>True</span>
-                        <span className='unit'>False</span>
+                        {t[1].map(unit => <span className='unit'>{unit}</span>)}
                     </div>
-                </div>
-
-                <div className='type'>
-                    <span className='type-name'>Bool</span>  
-                    <div className='unit-selection'>
-                        <span className='unit'>True</span>
-                        <span className='unit'>False</span>
-                    </div>
-                </div>
-
-                <div className='type'>
-                    <span className='type-name'>Bool</span>  
-                    <div className='unit-selection'>
-                        <span className='unit'>True</span>
-                        <span className='unit'>False</span>
-                    </div>
-                </div>
-
-                <div className='type'>
-                    <span className='type-name'>Bool</span>  
-                    <div className='unit-selection'>
-                        <span className='unit'>True</span>
-                        <span className='unit'>False</span>
-                    </div>
-                </div>
-
-                <div className='type'>
-                    <span className='type-name'>Bool</span>  
-                    <div className='unit-selection'>
-                        <span className='unit'>True</span>
-                        <span className='unit'>False</span>
-                    </div>
-                </div>
-
-                <div className='type'>
-                    <span>Bool</span>  
-                    <div className='unit-selection'>
-                        <span className='unit'>True</span>
-                        <span className='unit'>False</span>
-                    </div>
-                </div>
-
-                <div className='type' style={{backgroundColor:colorMap["Singleton"]}}>
-                    <span>Singleton</span>  
-                    <div className='unit-selection'>
-                        <span className='unit'>One</span>
-                    </div>
-                </div>
+                </div>))}
             </div>
             
         </div>
