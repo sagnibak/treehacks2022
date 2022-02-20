@@ -1,5 +1,4 @@
 import './Editor.css';
-// import AceEditor from 'react-ace';
 import init from 'prooflang-wasm';
 import React from 'react';
 
@@ -27,10 +26,6 @@ function Editor() {
         }
     }
 
-    React.useEffect(() => {
-        setOutput(['test', 'test2']);
-    }, []);
-
     return (
         <div className='editor'>
             {output.map((value, index) => (
@@ -41,7 +36,6 @@ function Editor() {
                 <span className='code' id="input" contentEditable="plaintext-only" onKeyDown={handleKeyDown}></span>
             </div>
         </div>
-        // <AceEditor mode="java" theme="github" name="editor" onChange={handleInput} />
     )
 }
 
