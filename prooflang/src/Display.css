@@ -11,18 +11,42 @@
     padding: 10px;
     background-color: lightblue;
     outline: black solid 1px;
-    margin: 10px;
+    margin: auto;
     display:flex;
     flex-direction: column;
+    border-radius: 4px;
+
 }
 .type-name {
     padding-bottom:5px;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.env-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.env {
+    padding: 10px;
+    /* background-color: lightblue; */
+    color: black;
+    font-weight: bold;
+    /* outline: black solid 1px; */
+    margin: auto;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex;
+    /* font-family: monospace; */
 }
 .unit-selection {
 }
 .unit {
     background-color: transparent;
     background-color: #ccc;
-    outline: black solid 1px;
+    /* outline: black solid 1px; */
     margin: 5px;
+    border-radius: 2px;
+    padding: 2px;
 }
