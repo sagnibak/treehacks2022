@@ -63,5 +63,32 @@ pub fn get_env() -> String {
 
 #[wasm_bindgen]
 pub fn get_types() -> String {
-    format!("{:?}", &INTERPRETER.lock().unwrap().types)
+    let types = &INTERPRETER.lock().unwrap().types;
+    let mut json_string = String::new();
+    json_string.push_str("[");
+
+    for (i, (s, t)) in types.iter().enumerate() {
+        if i != 0 {
+            json_string.push_str(", ");
+        }
+
+        json_string.push_str(&format!("[\"{}\"", s));
+        json_string.push_str(", ");
+        match t {
+            Type::ScalarType(_, constructors) => {
+                for (j, (name, _)) in constructors.iter().enumerate() {
+                    if j != 0 {
+                        json_string.push_str(", ");
+                    }
+
+                    json_string.push_str(&format!("\"{}\"", name.0));
+                }
+            }
+            Type::FunctionType(_, _) => todo!(),
+        }
+        json_string.push_str("]");
+    }
+
+    json_string.push_str("]");
+    json_string
 }

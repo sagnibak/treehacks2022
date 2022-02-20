@@ -3,7 +3,7 @@ use std::collections::{HashMap, HashSet};
 use crate::parser::{parse, Expr, SetDefExpr, VarDefExpr};
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
-struct Name(String);
+pub struct Name(pub String);
 
 #[derive(Clone, Debug)]
 pub struct Function {
