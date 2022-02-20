@@ -61,10 +61,12 @@ impl Interpreter {
                 ),
                 Expr::FuncDef(_) => todo!(),
             };
+
             match &new_type {
                 Type::ScalarType(name, _) => {
+                    self.types.insert(name.0.clone(), new_type.clone());
                     format!("Defined new type: {}", name.0)
-                },
+                }
                 Type::FunctionType(..) => todo!(),
             }
         } else {
